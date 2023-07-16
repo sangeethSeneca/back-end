@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1223,
+    "name": "A99-2C0",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 266.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "E-BIKE200-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 356.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "A-200",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "X-BIKE200",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 216.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "Z-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 199.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "E-BIKE200-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "ZEE-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "EEE2-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "E-BIKE200-2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "A2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "Z2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  },
+  {
+    "id": 1223,
+    "name": "AS2",
+    "description": "Newest Bike released in 2023",
+    "price": "$ 256.25",
+    "image": "images/"
+  }
+]

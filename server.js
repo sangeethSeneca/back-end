@@ -15,6 +15,10 @@ var express = require("express");
 var path = require("path");
 var app = express();
 const collegeDataModule = require("./modules/collegeData");
+const productsDataModule = require("./modules/products");
+const ordersDataModule = require("./modules/orders");
+const db = require("./database/db");
+
 const exphbs = require("express-handlebars");
 // setup http server to listen on HTTP_PORT
 app.use(express.static("public"));
@@ -252,12 +256,53 @@ app.get("/student/delete/:studentNum", (req, res) => {
     });
 });
 
+/////////////////////////////////////
+
+app.get("/products", (req, res) => {
+  let product = req.query.product;
+  if (product) {
+    productsDataModule
+      .getProductById(Number(product))
+      .then((data) => {
+        res.send({ products: data });
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  } else {
+    productsDataModule
+      .getAllProducts()
+      .then((data) => {
+        if (data.length > 0) {
+          res.send({ products: data });
+        }
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  }
+});
+
+app.get("/orders", (req, res) => {
+  ordersDataModule
+    .getAllOrders()
+    .then((data) => {
+      if (data.length > 0) {
+        res.send({ orders: data });
+      } else {
+        res.render({ message: "no results" });
+      }
+    })
+    .catch((error) => {
+      res.render("courses", { message: "no results" });
+    });
+});
+
 app.get("/*", (req, res) => {
   res.render("404");
 });
 
-collegeDataModule
-  .initialize()
+db.initialize()
   .then(() => {
     app.listen(HTTP_PORT, () => {
       console.log("server listening on port: " + HTTP_PORT);
