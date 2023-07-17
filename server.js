@@ -18,13 +18,14 @@ const collegeDataModule = require("./modules/collegeData");
 const productsDataModule = require("./modules/products");
 const ordersDataModule = require("./modules/orders");
 const db = require("./database/db");
+const cors = require("cors");
 
 const exphbs = require("express-handlebars");
 // setup http server to listen on HTTP_PORT
 app.use(express.static("public"));
 app.use("/images", express.static(__dirname + "/images"));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 app.engine(
   ".hbs",
   exphbs.engine({
@@ -161,104 +162,9 @@ app.get("/htmldemo", (req, res) => {
   res.render("htmlDemo");
 });
 
-app.get("/students/add", (req, res) => {
-  collegeDataModule
-    .getAllCourses()
-    .then((data) => res.render("addStudent", { courses: data }))
-    .catch(() => res.render("addStudent", { courses: [] }));
-});
-
-app.get("/courses/add", (req, res) => {
-  res.render("addCourse");
-});
-
-app.get("/courses/add", (req, res) => {
-  res.render("addCourse");
-});
-
-app.post("/students/add", (req, res) => {
-  collegeDataModule
-    .addStudent(req.body)
-    .then(() => res.redirect("/students"))
-    .catch((error) => {
-      res.send({ error: "Something went wrong" });
-    });
-});
-
-app.post("/courses/add", (req, res) => {
-  collegeDataModule
-    .addCourse(req.body)
-    .then(() => res.redirect("/courses"))
-    .catch((error) => {
-      res.send({ error: "Something went wrong" });
-    });
-});
-
-app.get("/course/:id", (req, res) => {
-  let courseId = req.params.id;
-  collegeDataModule
-    .getCourseById(courseId)
-    .then((data) => {
-      if (data) {
-        res.render("course", { course: data });
-      } else {
-        res.status(404).send("Course Not Found");
-      }
-    })
-    .catch((error) => {
-      res.render("courses", { message: "no results" });
-    });
-});
-
-app.post("/student/update", (req, res) => {
-  collegeDataModule
-    .updateStudent(req.body)
-    .then(() => {
-      res.redirect("/students");
-    })
-    .catch((error) => {
-      res.send({ error: "Something went wrong" });
-    });
-});
-
-app.post("/course/update", (req, res) => {
-  collegeDataModule
-    .updateCourse(req.body)
-    .then(() => {
-      res.redirect("/courses");
-    })
-    .catch((error) => {
-      res.send({ error: "Something went wrong" });
-    });
-});
-
-app.get("/course/delete/:id", (req, res) => {
-  let courseId = req.params.id;
-  collegeDataModule
-    .deleteCourseById(courseId)
-    .then(() => {
-      res.redirect("/courses");
-    })
-    .catch((error) => {
-      res.status(500).send("Unable to Remove Course / Course not found");
-    });
-});
-
-app.get("/student/delete/:studentNum", (req, res) => {
-  let studentNum = req.params.studentNum;
-  collegeDataModule
-    .deleteStudentByNum(studentNum)
-    .then(() => {
-      res.redirect("/students");
-    })
-    .catch((error) => {
-      res.status(500).send("Unable to Remove Student / StudentW not found");
-    });
-});
-
 /////////////////////////////////////
 
-app.get("/products", (req, res) => {
+app.get("/products", async (req, res) => {
   let product = req.query.product;
   if (product) {
     productsDataModule
@@ -283,19 +189,24 @@ app.get("/products", (req, res) => {
   }
 });
 
-app.get("/orders", (req, res) => {
+app.get("/orders", async (req, res) => {
   ordersDataModule
     .getAllOrders()
     .then((data) => {
       if (data.length > 0) {
         res.send({ orders: data });
       } else {
-        res.render({ message: "no results" });
+        res.send({ message: "no results" });
       }
     })
     .catch((error) => {
-      res.render("courses", { message: "no results" });
+      res.send("courses", { message: "no results" });
     });
+});
+
+app.get("/api/greeting", (req, res) => {
+  const name = req.query.name || "Anonymous";
+  res.send(`Hello, ${name}!`);
 });
 
 app.get("/*", (req, res) => {
@@ -311,3 +222,5 @@ db.initialize()
   .catch((error) => {
     console.log(error);
   });
+
+module.exports = app;
