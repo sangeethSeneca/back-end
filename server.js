@@ -159,7 +159,7 @@ app.get("/student/:studentNum", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.send("EVistra backend");
 });
 
 app.get("/about", (req, res) => {
