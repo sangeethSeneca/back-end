@@ -19,12 +19,16 @@ const productsDataModule = require("./modules/products");
 const ordersDataModule = require("./modules/orders");
 const db = require("./database/db");
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 // setup http server to listen on HTTP_PORT
 app.use(express.static("public"));
 app.use("/images", express.static(__dirname + "/images"));
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Parse URL-encoded bodies for x-www-form-urlencoded content type
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.engine(
   ".hbs",
@@ -187,6 +191,33 @@ app.get("/products", async (req, res) => {
         res.send({ message: "no results" });
       });
   }
+});
+
+app.post("/products/add", (req, res) => {
+  productsDataModule
+    .addProduct(req.body)
+    .then(() => res.send({ message: "Successfully Added" }))
+    .catch((error) => {
+      res.send({ error: "Something went wrong" });
+    });
+});
+
+app.put("/products/edit", (req, res) => {
+  productsDataModule
+    .editProduct(req.body)
+    .then(() => res.send({ message: "Successfully Edited" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.delete("/products/delete", (req, res) => {
+  productsDataModule
+    .deleteProduct(req.body)
+    .then(() => res.send({ message: "Successfully Deleted" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
 });
 
 app.get("/orders", async (req, res) => {

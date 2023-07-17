@@ -7,6 +7,22 @@ class Data {
     this.products = products;
     this.orders = orders;
   }
+
+  addProduct(product) {
+    this.products.push(product);
+  }
+  editProductInfo(index, product) {
+    let productsList = [...this.products];
+
+    productsList[index] = product;
+    this.products = productsList;
+  }
+  deleteProduct(index) {
+    let productsList = [...this.products];
+
+    productsList.splice(index, 1);
+    this.products = productsList;
+  }
 }
 var dataCollection = null;
 
@@ -41,6 +57,35 @@ module.exports.getOrders = () => {
 
 module.exports.getProducts = () => {
   return new Promise(function (resolve, reject) {
+    resolve(dataCollection.products);
+  });
+};
+
+module.exports.addProduct = (product) => {
+  return new Promise(function (resolve, reject) {
+    dataCollection.addProduct(product);
+    resolve(dataCollection.products);
+  });
+};
+
+module.exports.editProduct = (payload) => {
+  return new Promise(function (resolve, reject) {
+    let index = dataCollection.products.findIndex(
+      (product) => product.id === payload.id
+    );
+    dataCollection.editProductInfo(index, payload);
+
+    resolve(dataCollection.products);
+  });
+};
+
+module.exports.deleteProduct = (payload) => {
+  return new Promise(function (resolve, reject) {
+    let index = dataCollection.products.findIndex(
+      (product) => product.id === payload.id
+    );
+    dataCollection.deleteProduct(index);
+
     resolve(dataCollection.products);
   });
 };

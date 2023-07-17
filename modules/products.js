@@ -15,3 +15,27 @@ module.exports.getProductById = (Id) => {
       .catch(() => reject("no results returned"));
   });
 };
+
+module.exports.addProduct = (payload) => {
+  return new Promise(async (resolve, reject) => {
+    db.addProduct(payload)
+      .then((data) => resolve(payload))
+      .catch(() => reject("no results returned"));
+  });
+};
+
+module.exports.editProduct = (payload) => {
+  return new Promise(async (resolve, reject) => {
+    db.editProduct(payload)
+      .then((data) => resolve(payload))
+      .catch(() => reject("no results returned"));
+  });
+};
+
+module.exports.deleteProduct = (payload) => {
+  return new Promise(async (resolve, reject) => {
+    db.deleteProduct(payload)
+      .then((data) => resolve(payload))
+      .catch(() => reject("no results returned"));
+  });
+};
