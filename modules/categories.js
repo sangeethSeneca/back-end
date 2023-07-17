@@ -1,40 +1,40 @@
 const db = require("../database/db");
 
-module.exports.getAllOrders = () => {
+module.exports.getAllCategories = () => {
   return new Promise(async (resolve, reject) => {
-    db.getOrders()
+    db.getCategories()
       .then((data) => resolve(data))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.getOrderById = (Id) => {
+module.exports.getCategoryById = (Id) => {
   return new Promise(async (resolve, reject) => {
-    db.getAllOrders()
+    db.getCategoryById()
       .then((data) => resolve(data[0]))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.addOrder = (payload) => {
+module.exports.addCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.addOrder(payload)
+    db.addCategory(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.editOrder = (payload) => {
+module.exports.editCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.editOrder(payload)
+    db.editCategory(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.deleteOrder = (payload) => {
+module.exports.deleteCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.deleteOrder(payload)
+    db.deleteCategory(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });

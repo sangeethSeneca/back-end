@@ -14,9 +14,13 @@ var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
 var path = require("path");
 var app = express();
+
 const collegeDataModule = require("./modules/collegeData");
 const productsDataModule = require("./modules/products");
 const ordersDataModule = require("./modules/orders");
+const categoriesDataModule = require("./modules/categories");
+const usersDataModule = require("./modules/users");
+
 const db = require("./database/db");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -232,6 +236,137 @@ app.get("/orders", async (req, res) => {
     })
     .catch((error) => {
       res.send("courses", { message: "no results" });
+    });
+});
+
+app.post("/orders/add", (req, res) => {
+  ordersDataModule
+    .addOrder(req.body)
+    .then(() => res.send({ message: "Successfully Added" }))
+    .catch((error) => {
+      res.send({ error: "Something went wrong" });
+    });
+});
+
+app.put("/orders/edit", (req, res) => {
+  ordersDataModule
+    .editOrder(req.body)
+    .then(() => res.send({ message: "Successfully Edited" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.delete("/orders/delete", (req, res) => {
+  ordersDataModule
+    .deleteOrder(req.body)
+    .then(() => res.send({ message: "Successfully Deleted" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.get("/users", async (req, res) => {
+  let user = req.query.product;
+  if (user) {
+    usersDataModule
+      .getUserById(Number(user))
+      .then((data) => {
+        res.send({ user: data });
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  } else {
+    usersDataModule
+      .getAllUsers()
+      .then((data) => {
+        if (data.length > 0) {
+          res.send({ users: data });
+        }
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  }
+});
+
+app.post("/users/add", (req, res) => {
+  usersDataModule
+    .addUser(req.body)
+    .then(() => res.send({ message: "Successfully Added" }))
+    .catch((error) => {
+      res.send({ error: "Something went wrong" });
+    });
+});
+
+app.put("/users/edit", (req, res) => {
+  usersDataModule
+    .editUser(req.body)
+    .then(() => res.send({ message: "Successfully Edited" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.delete("/users/delete", (req, res) => {
+  usersDataModule
+    .deleteUser(req.body)
+    .then(() => res.send({ message: "Successfully Deleted" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.get("/categories", async (req, res) => {
+  let category = req.query.category;
+  if (category) {
+    categoriesDataModule
+      .getCategoryById(Number(category))
+      .then((data) => {
+        res.send({ categories: data });
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  } else {
+    categoriesDataModule
+      .getAllCategories()
+      .then((data) => {
+        if (data.length > 0) {
+          res.send({ categories: data });
+        }
+      })
+      .catch((error) => {
+        res.send({ message: "no results" });
+      });
+  }
+});
+
+app.post("/category/add", (req, res) => {
+  categoriesDataModule
+    .addCategory(req.body)
+    .then(() => res.send({ message: "Successfully Added" }))
+    .catch((error) => {
+      res.send({ error: "Something went wrong" });
+    });
+});
+
+app.put("/categories/edit", (req, res) => {
+  categoriesDataModule
+    .editCategory(req.body)
+    .then(() => res.send({ message: "Successfully Edited" }))
+    .catch((error) => {
+      res.send({ error: error });
+    });
+});
+
+app.delete("/category/delete", (req, res) => {
+  categoriesDataModule
+    .deleteCategory(req.body)
+    .then(() => res.send({ message: "Successfully Deleted" }))
+    .catch((error) => {
+      res.send({ error: error });
     });
 });
 

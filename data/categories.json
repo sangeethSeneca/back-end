@@ -1,0 +1,10 @@
+[
+  {
+    "categoryId": 1,
+    "categoryType": "Adult"
+  },
+  {
+    "categoryId": 2,
+    "categoryType": "Child"
+  }
+]
