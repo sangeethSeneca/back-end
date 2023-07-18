@@ -39,7 +39,7 @@ class Data {
     orderList[index] = order;
     this.orders = orderList;
   }
-  deleteProduct(index) {
+  deleteOrder(index) {
     let orderList = [...this.orders];
 
     orderList.splice(index, 1);
@@ -51,16 +51,17 @@ class Data {
     this.categories.push(category);
   }
   editCategoryInfo(index, category) {
-    let categoriesList = [...this.users];
+    let categoriesList = [...this.categories];
 
     categoriesList[index] = category;
-    this.users = categoriesList;
+    this.categories = categoriesList;
+    console.log(index);
   }
   deleteCategory(index) {
-    let categoriesList = [...this.users];
+    let categoriesList = [...this.categories];
 
     categoriesList.splice(index, 1);
-    this.users = categoriesList;
+    this.categories = categoriesList;
   }
 
   //users
@@ -212,7 +213,7 @@ module.exports.addCategory = (category) => {
 module.exports.editCategory = (payload) => {
   return new Promise(function (resolve, reject) {
     let index = dataCollection.categories.findIndex(
-      (category) => category.id === payload.id
+      (category) => category.categoryId === payload.categoryId
     );
     dataCollection.editCategoryInfo(index, payload);
 
