@@ -226,7 +226,7 @@ module.exports.deleteCategory = (payload) => {
     let index = dataCollection.categories.findIndex(
       (category) => category.id === payload.id
     );
-    dataCollection.deleteOrder(index);
+    dataCollection.deleteCategory(index);
 
     resolve(dataCollection.categories);
   });
