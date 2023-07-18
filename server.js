@@ -352,7 +352,7 @@ app.post("/category/add", (req, res) => {
     });
 });
 
-app.put("/categories/edit", (req, res) => {
+app.put("/category/edit", (req, res) => {
   categoriesDataModule
     .editCategory(req.body)
     .then(() => res.send({ message: "Successfully Edited" }))
