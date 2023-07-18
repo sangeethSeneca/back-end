@@ -16,9 +16,9 @@ var path = require("path");
 var app = express();
 
 const collegeDataModule = require("./modules/collegeData");
-const productsDataModule = require("./modules/products");
+const productsDataModule = require("./modules/productModule");
 const ordersDataModule = require("./modules/orders");
-const categoriesDataModule = require("./modules/categories");
+const categoriesDataModule = require("./modules/categoryModule");
 const usersDataModule = require("./modules/users");
 
 const db = require("./database/db");
@@ -348,7 +348,7 @@ app.post("/category/add", (req, res) => {
     .addCategory(req.body)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
-      res.send({ error: "Something went wrong" });
+      res.send({ error: error });
     });
 });
 
