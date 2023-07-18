@@ -31,7 +31,7 @@ class Data {
   //orders
 
   addOrder(order) {
-    this.products.push(order);
+    this.orders.push(order);
   }
   editOrderInfo(index, order) {
     let orderList = [...this.orders];
@@ -48,7 +48,7 @@ class Data {
 
   ///categories
   addCategory(category) {
-    this.products.push(category);
+    this.categories.push(category);
   }
   editCategoryInfo(index, category) {
     let categoriesList = [...this.users];
