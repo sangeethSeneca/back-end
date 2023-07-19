@@ -17,9 +17,9 @@ var app = express();
 
 const collegeDataModule = require("./modules/collegeData");
 const productsDataModule = require("./modules/productModule");
-const ordersDataModule = require("./modules/orders");
+const ordersDataModule = require("./modules/orderModule");
 const categoriesDataModule = require("./modules/categoryModule");
-const usersDataModule = require("./modules/users");
+const usersDataModule = require("./modules/usersModule");
 
 const db = require("./database/db");
 const cors = require("cors");
