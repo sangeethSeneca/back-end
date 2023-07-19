@@ -40,11 +40,14 @@ module.exports.deleteUser = (payload) => {
   });
 };
 
-module.exports.validateUserPayload = (User) => {
-  if (!category.categoryId) {
-    throw Error("Category ID is mandatory");
+module.exports.validateUserPayload = (user) => {
+  if (!user.userId) {
+    throw Error("User ID is mandatory");
   }
-  if (!category.categoryType) {
-    throw Error("Category Type is mandatory");
+  if (!user.userName) {
+    throw Error("User Name is mandatory");
+  }
+  if (!user.email) {
+    throw Error("User Email is mandatory");
   }
 };

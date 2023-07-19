@@ -1,22 +1,73 @@
 [
   {
     "id": 1,
-    "name": "Order 1",
-    "price": 10.99
+    "customerName": "Order 1",
+    "price": 10.99,
+    "products": [
+      {
+        "id": 12,
+        "modelId": "A99-2C0",
+        "modelName": "A99-2C0",
+        "description": "Newest Bike released in 2023",
+        "price": "$ 266.25",
+        "image": "images/"
+      },
+      {
+        "id": 34,
+        "modelId": "123-2C0",
+        "modelName": "34-2C0",
+        "name": "E-BIKE200-2",
+        "description": "Newest Bike released in 2023",
+        "price": "$ 356.25",
+        "image": "images/"
+      }
+    ]
   },
   {
     "id": 2,
-    "name": "Order 2",
-    "price": 19.99
+    "customerName": "Order 2",
+    "price": 19.99,
+    "products": [
+      {
+        "id": 34,
+        "modelId": "123-2C0",
+        "modelName": "34-2C0",
+        "name": "E-BIKE200-2",
+        "description": "Newest Bike released in 2023",
+        "price": "$ 356.25",
+        "image": "images/"
+      }
+    ]
   },
   {
     "id": 3,
-    "name": "Order 3",
-    "price": 5.99
+    "customerName": "Order 3",
+    "price": 5.99,
+    "products": [
+      {
+        "id": 34,
+        "modelId": "123-2C0",
+        "modelName": "34-2C0",
+        "name": "E-BIKE200-2",
+        "description": "Newest Bike released in 2023",
+        "price": "$ 356.25",
+        "image": "images/"
+      }
+    ]
   },
   {
     "id": 4,
-    "name": "Order 4",
-    "price": 14.99
+    "customerName": "Order 4",
+    "price": 14.99,
+    "products": [
+      {
+        "id": 12,
+        "modelId": "A99-2C0",
+        "modelName": "A99-2C0",
+        "description": "Newest Bike released in 2023",
+        "price": "$ 266.25",
+        "image": "images/"
+      }
+    ]
   }
 ]

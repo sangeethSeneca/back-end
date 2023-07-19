@@ -40,11 +40,14 @@ module.exports.deleteProduct = (payload) => {
   });
 };
 
-module.exports.validateProductPayload = (category) => {
-  if (!category.categoryId) {
-    throw Error("Category ID is mandatory");
+module.exports.validateProductPayload = (product) => {
+  if (!product.modelId) {
+    throw Error("Model ID is mandatory");
   }
-  if (!category.categoryType) {
-    throw Error("Category Type is mandatory");
+  if (!product.modelName) {
+    throw Error("Model Name is mandatory");
+  }
+  if (!product.price) {
+    throw Error("Model Price is mandatory");
   }
 };

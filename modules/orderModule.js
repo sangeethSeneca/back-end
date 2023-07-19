@@ -39,3 +39,15 @@ module.exports.deleteOrder = (payload) => {
       .catch(() => reject("no results returned"));
   });
 };
+
+module.exports.validateOrderPayload = (order) => {
+  if (!order.modelId) {
+    throw Error("Order ID is mandatory");
+  }
+  if (!order.customerName) {
+    throw Error("Customer Name is mandatory");
+  }
+  if (order?.products?.length === 0) {
+    throw Error("Order cannot be empty");
+  }
+};
