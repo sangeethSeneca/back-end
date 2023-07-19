@@ -19,7 +19,7 @@ module.exports.getCategoryById = (Id) => {
 module.exports.addCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
-      validate(payload);
+      validateCategoryPayload(payload);
       db.addCategory(payload)
         .then((data) => resolve(payload))
         .catch(() => reject("no results returned"));
@@ -32,7 +32,7 @@ module.exports.addCategory = (payload) => {
 module.exports.editCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
-      validate(payload);
+      validateCategoryPayload(payload);
       db.editCategory(payload)
         .then((data) => resolve(payload))
         .catch(() => reject("no results returned"));

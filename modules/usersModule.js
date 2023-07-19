@@ -1,41 +1,50 @@
 const db = require("../database/db");
 
-module.exports.getAllCategories = () => {
+module.exports.getAllUsers = () => {
   return new Promise(async (resolve, reject) => {
-    db.getCategories()
+    db.getUsers()
       .then((data) => resolve(data))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.getCategoryById = (Id) => {
+module.exports.getUserById = (Id) => {
   return new Promise(async (resolve, reject) => {
-    db.getCategoryById()
+    db.getUserById()
       .then((data) => resolve(data[0]))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.addCategory = (payload) => {
+module.exports.addUser = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.addCategory(payload)
+    db.addUser(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.editCategory = (payload) => {
+module.exports.editUser = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.editCategory(payload)
+    db.editUser(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });
 };
 
-module.exports.deleteCategory = (payload) => {
+module.exports.deleteUser = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.deleteCategory(payload)
+    db.deleteUser(payload)
       .then((data) => resolve(payload))
       .catch(() => reject("no results returned"));
   });
+};
+
+module.exports.validateUserPayload = (User) => {
+  if (!category.categoryId) {
+    throw Error("Category ID is mandatory");
+  }
+  if (!category.categoryType) {
+    throw Error("Category Type is mandatory");
+  }
 };
