@@ -1,6 +1,6 @@
 const db = require("../database/db");
 
-module.exports.getAllCategories = () => {
+const getAllCategories = () => {
   return new Promise(async (resolve, reject) => {
     db.getCategories()
       .then((data) => resolve(data))
@@ -8,7 +8,7 @@ module.exports.getAllCategories = () => {
   });
 };
 
-module.exports.getCategoryById = (Id) => {
+const getCategoryById = (Id) => {
   return new Promise(async (resolve, reject) => {
     db.getCategoryById()
       .then((data) => resolve(data[0]))
@@ -16,7 +16,7 @@ module.exports.getCategoryById = (Id) => {
   });
 };
 
-module.exports.addCategory = (payload) => {
+const addCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
       validateCategoryPayload(payload);
@@ -29,7 +29,7 @@ module.exports.addCategory = (payload) => {
   });
 };
 
-module.exports.editCategory = (payload) => {
+const editCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
     try {
       validateCategoryPayload(payload);
@@ -42,7 +42,7 @@ module.exports.editCategory = (payload) => {
   });
 };
 
-module.exports.deleteCategory = (payload) => {
+const deleteCategory = (payload) => {
   return new Promise(async (resolve, reject) => {
     db.deleteCategory(payload)
       .then((data) => resolve(payload))
@@ -50,11 +50,20 @@ module.exports.deleteCategory = (payload) => {
   });
 };
 
-module.exports.validateCategoryPayload = (category) => {
+validateCategoryPayload = (category) => {
   if (!category.categoryId) {
     throw Error("Category ID is mandatory");
   }
   if (!category.categoryType) {
     throw Error("Category Type is mandatory");
   }
+};
+
+module.exports = {
+validateCategoryPayload, 
+getCategoryById,
+deleteCategory,
+editCategory,
+addCategory,
+getAllCategories
 };

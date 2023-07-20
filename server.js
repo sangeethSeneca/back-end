@@ -348,6 +348,7 @@ app.post("/category/add", (req, res) => {
     .addCategory(req.body)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
+console.log(req.body);
       res.send({ error: error });
     });
 });
