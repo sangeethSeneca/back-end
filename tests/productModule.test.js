@@ -2,7 +2,7 @@ const { validateProductPayload } = require("../modules/productModule");
 
 test("throws an error if model ID is missing", () => {
   const product = {
-    modelName: "Product A",
+    modelName: "Product AA",
     price: 100,
   };
   expect(() => {
