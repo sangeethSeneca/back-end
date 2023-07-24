@@ -36,7 +36,7 @@ module.exports.deleteProduct = (payload) => {
   return new Promise(async (resolve, reject) => {
     db.deleteProduct(payload)
       .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+      .catch(() => reject("no results returneds"));
   });
 };
 
