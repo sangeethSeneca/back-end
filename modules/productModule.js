@@ -39,7 +39,6 @@ module.exports.deleteProduct = (payload) => {
       .catch(() => reject("no results returneds"));
   });
 };
-
 module.exports.validateProductPayload = (product) => {
   if (!product.modelId) {
     throw Error("Model ID is mandatory");
