@@ -5,7 +5,6 @@ test("throws an error if model ID is missing", () => {
     modelName: "Product A",
     price: 100,
   };
-
   expect(() => {
     validateProductPayload(product);
   }).toThrow("Model ID is mandatory");
