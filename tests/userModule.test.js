@@ -8,7 +8,7 @@ test("throws an error if user ID is missing", () => {
 
   expect(() => {
     validateUserPayload(user);
-  }).toThrow("User ID is mandatory");
+  }).toThrow("User ID is mandatory s");
 });
 
 test("throws an error if user name is missing", () => {
