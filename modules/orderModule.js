@@ -7,7 +7,6 @@ module.exports.getAllOrders = () => {
       .catch(() => reject("no results returned"));
   });
 };
-
 module.exports.getOrderById = (Id) => {
   return new Promise(async (resolve, reject) => {
     db.getAllOrders()
