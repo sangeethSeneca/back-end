@@ -5,7 +5,7 @@ var sequelize = new Sequelize(
   "klnksjno",
   "W96p_9jIklCE5HY0mBB9Vi7V1GR676YR",
   {
-    host: "salt.db.elephantsql.com ",
+    host: "salt.db.elephantsql.com",
     dialect: "postgres",
     port: 5432,
     dialectOptions: {
