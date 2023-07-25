@@ -3,7 +3,7 @@
     "userId": 1,
     "firstName": "John",
     "lastName": "Doe",
-    "dateOfBirth": "1990-05-15",
+    "dateOfBirth": "1990-05-151",
     "username": "john.doe",
     "password": "John123@",
     "email": "john.doe@example.com",
