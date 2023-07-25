@@ -43,6 +43,7 @@ module.exports.validateProductPayload = (product) => {
   if (!product.modelId) {
     throw Error("Model ID is mandatory");
   }
+  
   if (!product.modelName) {
     throw Error("Model Name is mandatory");
   }
