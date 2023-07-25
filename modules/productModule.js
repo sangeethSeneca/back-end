@@ -41,7 +41,7 @@ module.exports.deleteProduct = (payload) => {
 };
 module.exports.validateProductPayload = (product) => {
   if (!product.modelId) {
-    throw Error("Model ID is mandatory");
+    throw Error("Model ID is mandatory ");
   }
 
   if (!product.modelName) {
