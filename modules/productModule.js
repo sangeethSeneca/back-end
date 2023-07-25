@@ -48,6 +48,6 @@ module.exports.validateProductPayload = (product) => {
     throw Error("Model Name is mandatory and should be unique  ");
   }
   if (!product.price) {
-    throw Error("Model Price is mandatory ");
+    throw Error("Model Price is mandatory");
   }
 };
