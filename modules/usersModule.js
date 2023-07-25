@@ -42,7 +42,7 @@ module.exports.deleteUser = (payload) => {
 
 module.exports.validateUserPayload = (user) => {
   if (!user.userId) {
-    throw Error("User ID is mandatory");
+    throw Error("User ID is mandatory.");
   }
   if (!user.userName) {
     throw Error("User Name is mandatory");
