@@ -1,10 +1,14 @@
 const db = require("../database/db");
 
-module.exports.getAllProducts = () => {
+module.exports.getAllProducts = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.getProducts()
-      .then((data) => resolve(data))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("products");
+      const products = await collection.find({}).toArray();
+      resolve(products);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 

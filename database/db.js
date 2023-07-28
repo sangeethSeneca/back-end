@@ -1,4 +1,26 @@
 const fs = require("fs");
+const { MongoClient } = require("mongodb");
+
+async function connectToDatabase() {
+  try {
+    const client = await MongoClient.connect(connectionString, {
+      useUnifiedTopology: true,
+    });
+    const db = client.db("evistra"); // Replace 'your_db_name' with the actual name of your database
+
+    // Now, you can perform operations on the database
+
+    // Example: querying a collection
+    const collection = db.collection("users");
+    const documents = await collection.find({}).toArray();
+    console.log(documents);
+
+    client.close();
+  } catch (err) {
+    console.error("Error connecting to the database:", err);
+  }
+}
+
 class Data {
   products;
   orders;
@@ -106,7 +128,6 @@ module.exports.initialize = () => {
               categoryData = JSON.parse(dataFromCategoryFile);
               let productDataFromFile = JSON.parse(dataFromProductFile); // convert the JSON from the file into an array of objects
               let orderDataFromFile = JSON.parse(dataFromOrdersFile); // convert the JSON from the file into an array of objects
-              console.log(userData);
               dataCollection = new Data(
                 productDataFromFile,
                 orderDataFromFile,

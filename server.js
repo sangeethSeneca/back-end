@@ -10,11 +10,10 @@
  *
  ********************************************************************************/
 
-var HTTP_PORT = process.env.PORT || 8080;
+var HTTP_PORT = process.env.PORT || 8090;
 var express = require("express");
 var path = require("path");
 var app = express();
-
 const collegeDataModule = require("./modules/collegeData");
 const productsDataModule = require("./modules/productModule");
 const ordersDataModule = require("./modules/orderModule");
@@ -25,6 +24,7 @@ const db = require("./database/db");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
+const connectDB = require("./database/dbConnect");
 // setup http server to listen on HTTP_PORT
 app.use(express.static("public"));
 app.use("/images", express.static(__dirname + "/images"));
@@ -64,6 +64,17 @@ app.engine(
     },
   })
 );
+
+connectDB()
+  .then((db) => {
+    app.locals.db = db;
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1);
+  });
+
 app.set("view engine", ".hbs");
 
 app.use(function (req, res, next) {
@@ -185,7 +196,7 @@ app.get("/products", async (req, res) => {
       });
   } else {
     productsDataModule
-      .getAllProducts()
+      .getAllProducts(req)
       .then((data) => {
         if (data.length > 0) {
           res.send({ products: data });
@@ -348,7 +359,7 @@ app.post("/category/add", (req, res) => {
     .addCategory(req.body)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
-console.log(req.body);
+      console.log(req.body);
       res.send({ error: error });
     });
 });

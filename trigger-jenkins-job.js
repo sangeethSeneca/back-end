@@ -50,8 +50,6 @@ async function makePostRequest() {
       "Content-Type": "application/x-www-form-urlencoded", // Set appropriate Content-Type if needed
     };
 
-    console.log(headers);
-
     const body = "your-post-data-here"; // Include the data you want to POST
 
     const response = await fetch(

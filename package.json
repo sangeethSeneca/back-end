@@ -5,7 +5,8 @@
   "main": "a2.js",
   "scripts": {
     "test": "jest",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:jenkins": "nodemon --exec \"node trigger-jenkins-job.js server.js\""
   },
   "author": "eperera",
   "license": "ISC",
@@ -14,6 +15,9 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.4",
+    "mongodb": "^5.7.0",
+    "node-fetch": "^3.3.1",
+    "onchange": "^7.1.0",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.30.0"

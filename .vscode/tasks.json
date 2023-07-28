@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Trigger Jenkins Job",
+      "type": "shell",
+      "command": "node trigger-jenkins-job.js", // Replace with your script name
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": [],
+      "runOptions": { "runOn": "default" }
+    }
+  ]
+}
