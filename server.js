@@ -30,11 +30,12 @@ const connectDB = require("./database/dbConnect");
 app.use(express.static("public"));
 app.use("/images", express.static(__dirname + "/images"));
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/auth", authRoutes);
 // Parse URL-encoded bodies for x-www-form-urlencoded content type
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 app.engine(
   ".hbs",
   exphbs.engine({
