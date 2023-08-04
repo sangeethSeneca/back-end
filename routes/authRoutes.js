@@ -2,11 +2,13 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { MongoClient } = require("mongodb");
+const { jwtSecretKey } = require("../modules/common");
 const uri =
   "mongodb+srv://eperera:TshuWCsp8heOzDpl@ahead-capstone.af6smvw.mongodb.net/";
 
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 const router = express.Router();
+
 client.connect((err) => {
   if (err) {
     console.error("Error connecting to MongoDB:", err);
@@ -17,7 +19,7 @@ client.connect((err) => {
 
 // Register Endpoint
 router.post("/register", async (req, res) => {
-  const { fName, lName, email, phoneNumber, password } = req.body;
+  const { fName, lName, email, phoneNumber, password, userType } = req.body;
   const usersCollection = client.db("evistra").collection("users");
 
   try {
@@ -39,6 +41,7 @@ router.post("/register", async (req, res) => {
       lName,
       phoneNumber,
       email,
+      userType,
       password: hashedPassword,
     });
 
@@ -69,12 +72,20 @@ router.post("/signin", async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id }, "your-secret-key", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, userType: user.userType },
+      jwtSecretKey,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     // Respond with the JWT token
-    res.status(200).json({ token });
+    res.status(200).json({
+      token,
+      userRole: user.userType,
+      userName: user.fName,
+    });
   } catch (error) {
     console.error("Error signing in:", error);
     res.status(500).json({ message: "Something went wrong" });

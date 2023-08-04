@@ -26,6 +26,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const connectDB = require("./database/dbConnect");
+const { verifyToken } = require("./modules/common");
 // setup http server to listen on HTTP_PORT
 app.use(express.static("public"));
 app.use("/images", express.static(__dirname + "/images"));
@@ -120,7 +121,7 @@ app.get("/products", async (req, res) => {
   }
 });
 
-app.post("/products/add", (req, res) => {
+app.post("/products/add", verifyToken, (req, res) => {
   productsDataModule
     .addProduct(req)
     .then(() => res.send({ message: "Successfully Added" }))
@@ -129,7 +130,7 @@ app.post("/products/add", (req, res) => {
     });
 });
 
-app.put("/products/edit", (req, res) => {
+app.put("/products/edit", verifyToken, (req, res) => {
   productsDataModule
     .editProduct(req)
     .then(() => res.send({ message: "Successfully Edited" }))
@@ -138,7 +139,7 @@ app.put("/products/edit", (req, res) => {
     });
 });
 
-app.delete("/products/delete", (req, res) => {
+app.delete("/products/delete", verifyToken, (req, res) => {
   productsDataModule
     .deleteProduct(req)
     .then(() => res.send({ message: "Successfully Deleted" }))
@@ -147,7 +148,7 @@ app.delete("/products/delete", (req, res) => {
     });
 });
 
-app.get("/orders", async (req, res) => {
+app.get("/orders", verifyToken, async (req, res) => {
   ordersDataModule
     .getAllOrders()
     .then((data) => {
@@ -180,7 +181,7 @@ app.put("/orders/edit", (req, res) => {
     });
 });
 
-app.delete("/orders/delete", (req, res) => {
+app.delete("/orders/delete", verifyToken, (req, res) => {
   ordersDataModule
     .deleteOrder(req.body)
     .then(() => res.send({ message: "Successfully Deleted" }))
@@ -189,7 +190,7 @@ app.delete("/orders/delete", (req, res) => {
     });
 });
 
-app.get("/users", async (req, res) => {
+app.get("/users", verifyToken, async (req, res) => {
   let user = req.query.product;
   if (user) {
     usersDataModule
@@ -214,7 +215,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.post("/users/add", (req, res) => {
+app.post("/users/add", verifyToken, (req, res) => {
   usersDataModule
     .addUser(req.body)
     .then(() => res.send({ message: "Successfully Added" }))
@@ -223,7 +224,7 @@ app.post("/users/add", (req, res) => {
     });
 });
 
-app.put("/users/edit", (req, res) => {
+app.put("/users/edit", verifyToken, (req, res) => {
   usersDataModule
     .editUser(req.body)
     .then(() => res.send({ message: "Successfully Edited" }))
@@ -232,7 +233,7 @@ app.put("/users/edit", (req, res) => {
     });
 });
 
-app.delete("/users/delete", (req, res) => {
+app.delete("/users/delete", verifyToken, (req, res) => {
   usersDataModule
     .deleteUser(req.body)
     .then(() => res.send({ message: "Successfully Deleted" }))
