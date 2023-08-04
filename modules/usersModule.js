@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const db = require("../database/db");
 
 module.exports.getAllUsers = (req) => {
@@ -41,7 +42,7 @@ module.exports.editUser = (payload) => {
   });
 };
 
-module.exports.deleteUser = (payload) => {
+module.exports.deleteUser = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
       const collection = req.app.locals.db.collection("users");
