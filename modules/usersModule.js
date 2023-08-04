@@ -1,10 +1,14 @@
 const db = require("../database/db");
 
-module.exports.getAllUsers = () => {
+module.exports.getAllUsers = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.getUsers()
-      .then((data) => resolve(data))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("users");
+      const users = await collection.find({}).toArray();
+      resolve(users);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 
@@ -16,11 +20,16 @@ module.exports.getUserById = (Id) => {
   });
 };
 
-module.exports.addUser = (payload) => {
+module.exports.addUser = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.addUser(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("users");
+      const insertResult = await collection.insertOne(req.body);
+      resolve(insertResult);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
   });
 };
 

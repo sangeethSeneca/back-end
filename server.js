@@ -203,7 +203,7 @@ app.get("/users", verifyToken, async (req, res) => {
       });
   } else {
     usersDataModule
-      .getAllUsers()
+      .getAllUsers(req)
       .then((data) => {
         if (data.length > 0) {
           res.send({ users: data });
@@ -217,7 +217,7 @@ app.get("/users", verifyToken, async (req, res) => {
 
 app.post("/users/add", verifyToken, (req, res) => {
   usersDataModule
-    .addUser(req.body)
+    .addUser(req)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
       res.send({ error: "Something went wrong" });
