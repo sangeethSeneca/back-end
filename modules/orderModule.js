@@ -2,9 +2,13 @@ const db = require("../database/db");
 
 module.exports.getAllOrders = () => {
   return new Promise(async (resolve, reject) => {
-    db.getOrders()
-      .then((data) => resolve(data))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("orders");
+      const products = await collection.find({}).toArray();
+      resolve(products);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 module.exports.getOrderById = (Id) => {
