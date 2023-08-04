@@ -235,7 +235,7 @@ app.put("/users/edit", verifyToken, (req, res) => {
 
 app.delete("/users/delete", verifyToken, (req, res) => {
   usersDataModule
-    .deleteUser(req.body)
+    .deleteUser(req)
     .then(() => res.send({ message: "Successfully Deleted" }))
     .catch((error) => {
       res.send({ error: error });
