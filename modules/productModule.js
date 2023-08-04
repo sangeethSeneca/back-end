@@ -1,4 +1,5 @@
 const db = require("../database/db");
+const { MongoClient, ObjectId } = require("mongodb");
 
 module.exports.getAllProducts = (req) => {
   return new Promise(async (resolve, reject) => {
@@ -20,27 +21,48 @@ module.exports.getProductById = (Id) => {
   });
 };
 
-module.exports.addProduct = (payload) => {
+module.exports.addProduct = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.addProduct(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("products");
+      const insertResult = await collection.insertOne(req.body);
+      resolve(insertResult);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
   });
 };
 
-module.exports.editProduct = (payload) => {
+module.exports.editProduct = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.editProduct(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("products");
+
+      const filter = { _id: new ObjectId(req.body._id) };
+      const { _id, ...changeObject } = req.body;
+      const updateResult = await collection.updateOne(filter, {
+        $set: changeObject,
+      });
+      console.log(req.body._id);
+      resolve(updateResult);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
   });
 };
 
-module.exports.deleteProduct = (payload) => {
+module.exports.deleteProduct = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.deleteProduct(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returneds"));
+    try {
+      const collection = req.app.locals.db.collection("products");
+      const filter = { _id: new ObjectId(req.body._id) };
+      const deleteResult = await collection.deleteOne(filter);
+      resolve(deleteResult);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 module.exports.validateProductPayload = (product) => {

@@ -89,98 +89,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/students", (req, res) => {
-  let course = req.query.course;
-  if (course) {
-    collegeDataModule
-      .getStudentsByCourse(Number(course))
-      .then((data) => {
-        res.render("students", { students: data });
-      })
-      .catch((error) => {
-        res.render("students", { message: "no results" });
-      });
-  } else {
-    collegeDataModule
-      .getAllStudents()
-      .then((data) => {
-        if (data.length) {
-          res.render("students", { students: data });
-        } else {
-          res.render("students", { message: "No results" });
-        }
-      })
-      .catch((error) => {
-        res.render("students", { message: "no results" });
-      });
-  }
-});
-
-app.get("/courses", (req, res) => {
-  collegeDataModule
-    .getAllCourses()
-    .then((data) => {
-      if (data.length) {
-        res.render("courses", { courses: data });
-      } else {
-        res.render("courses", { message: "no results" });
-      }
-    })
-    .catch((error) => {
-      res.render("courses", { message: "no results" });
-    });
-});
-
-app.get("/student/:studentNum", (req, res) => {
-  // initialize an empty object to store the values
-  let viewData = {};
-  collegeDataModule
-    .getStudentByNum(req.params.studentNum)
-    .then((data) => {
-      if (data) {
-        viewData.student = data; //store student data in the "viewData" object as "student"
-      } else {
-        viewData.student = null; // set student to null if none were returned
-      }
-    })
-    .catch(() => {
-      viewData.student = null; // set student to null if there was an error
-    })
-    .then(() => collegeDataModule.getAllCourses())
-    .then((data) => {
-      viewData.courses = data; // store course data in the "viewData" object as "courses"
-      // loop through viewData.courses and once we have found the courseId that matches
-      // the student's "course" value, add a "selected" property to the matching
-      // viewData.courses object
-      for (let i = 0; i < viewData.courses.length; i++) {
-        if (viewData.courses[i].courseId == viewData.student.course) {
-          viewData.courses[i].selected = true;
-        }
-      }
-    })
-    .catch(() => {
-      viewData.courses = []; // set courses to empty if there was an error
-    })
-    .then(() => {
-      if (viewData.student == null) {
-        // if no student - return an error
-        res.status(404).send("Student Not Found");
-      } else {
-        res.render("student", { viewData: viewData }); // render the "student" view
-      }
-    });
-});
-
 app.get("/", (req, res) => {
   res.send("EVistra backend");
-});
-
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/htmldemo", (req, res) => {
-  res.render("htmlDemo");
 });
 
 /////////////////////////////////////
@@ -212,7 +122,7 @@ app.get("/products", async (req, res) => {
 
 app.post("/products/add", (req, res) => {
   productsDataModule
-    .addProduct(req.body)
+    .addProduct(req)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
       res.send({ error: "Something went wrong" });
@@ -221,7 +131,7 @@ app.post("/products/add", (req, res) => {
 
 app.put("/products/edit", (req, res) => {
   productsDataModule
-    .editProduct(req.body)
+    .editProduct(req)
     .then(() => res.send({ message: "Successfully Edited" }))
     .catch((error) => {
       res.send({ error: error });
@@ -230,7 +140,7 @@ app.put("/products/edit", (req, res) => {
 
 app.delete("/products/delete", (req, res) => {
   productsDataModule
-    .deleteProduct(req.body)
+    .deleteProduct(req)
     .then(() => res.send({ message: "Successfully Deleted" }))
     .catch((error) => {
       res.send({ error: error });
