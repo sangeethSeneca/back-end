@@ -43,9 +43,14 @@ module.exports.editUser = (payload) => {
 
 module.exports.deleteUser = (payload) => {
   return new Promise(async (resolve, reject) => {
-    db.deleteUser(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = req.app.locals.db.collection("users");
+      const filter = { _id: new ObjectId(req.body._id) };
+      const deleteResult = await collection.deleteOne(filter);
+      resolve(deleteResult);
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 

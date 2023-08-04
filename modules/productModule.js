@@ -56,7 +56,7 @@ module.exports.editProduct = (req) => {
 module.exports.deleteProduct = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("users");
+      const collection = req.app.locals.db.collection("products");
       const filter = { _id: new ObjectId(req.body._id) };
       const deleteResult = await collection.deleteOne(filter);
       resolve(deleteResult);
