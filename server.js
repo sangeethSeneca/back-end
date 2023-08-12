@@ -116,7 +116,7 @@ app.get("/products", async (req, res) => {
         }
       })
       .catch((error) => {
-        res.send({ message: error });
+        res.send({ message: JSON.stringify(error) });
       });
   }
 });
