@@ -116,7 +116,7 @@ app.get("/products", async (req, res) => {
         }
       })
       .catch((error) => {
-        res.send({ message: "no results" });
+        res.send({ message: error });
       });
   }
 });
