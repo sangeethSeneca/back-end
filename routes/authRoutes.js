@@ -83,8 +83,10 @@ router.post("/signin", async (req, res) => {
     // Respond with the JWT token
     res.status(200).json({
       token,
+      userId: user._id,
       userRole: user.userType,
       userName: user.fName,
+      contactNumber: user.contactNumber,
     });
   } catch (error) {
     console.error("Error signing in:", error);
