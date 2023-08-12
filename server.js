@@ -108,16 +108,11 @@ app.get("/products", async (req, res) => {
         res.send({ message: error });
       });
   } else {
-    productsDataModule
-      .getAllProducts(req)
-      .then((data) => {
-        if (data.length > 0) {
-          res.send({ products: data });
-        }
-      })
-      .catch((error) => {
-        res.send({ message: JSON.stringify(error) });
-      });
+    productsDataModule.getAllProducts(req).then((data) => {
+      if (data.length > 0) {
+        res.send({ products: data });
+      }
+    });
   }
 });
 
