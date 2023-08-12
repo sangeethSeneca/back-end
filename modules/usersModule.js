@@ -4,7 +4,7 @@ const db = require("../database/db");
 module.exports.getAllUsers = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = await req.app.locals.db.collection("users");
+      const collection = await req.db.collection("users");
       const users = await collection.find({}).toArray();
       resolve(users);
     } catch (error) {
@@ -24,7 +24,7 @@ module.exports.getUserById = (Id) => {
 module.exports.addUser = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("users");
+      const collection = req.db.collection("users");
       const insertResult = await collection.insertOne(req.body);
       resolve(insertResult);
     } catch (error) {
@@ -45,7 +45,7 @@ module.exports.editUser = (payload) => {
 module.exports.deleteUser = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("users");
+      const collection = req.db.collection("users");
       const filter = { _id: new ObjectId(req.body._id) };
       const deleteResult = await collection.deleteOne(filter);
       resolve(deleteResult);

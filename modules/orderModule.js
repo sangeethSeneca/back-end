@@ -1,9 +1,9 @@
 const db = require("../database/db");
 
-module.exports.getAllOrders = () => {
+module.exports.getAllOrders = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("orders");
+      const collection = req.db.collection("orders");
       const products = await collection.find({}).toArray();
       resolve(products);
     } catch (error) {
@@ -19,19 +19,34 @@ module.exports.getOrderById = (Id) => {
   });
 };
 
-module.exports.addOrder = (payload) => {
+module.exports.addOrder = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.addOrder(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = await req.db.collection("orders");
+      const insertResult = await collection.insertOne(req.body);
+      resolve(insertResult);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
   });
 };
 
-module.exports.editOrder = (payload) => {
+module.exports.editOrder = (req) => {
   return new Promise(async (resolve, reject) => {
-    db.editOrder(payload)
-      .then((data) => resolve(payload))
-      .catch(() => reject("no results returned"));
+    try {
+      const collection = await req.db.collection("orders");
+
+      const filter = { _id: new ObjectId(req.body._id) };
+      const { _id, ...changeObject } = req.body;
+      const updateResult = await collection.updateOne(filter, {
+        $set: changeObject,
+      });
+      resolve(updateResult);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
   });
 };
 

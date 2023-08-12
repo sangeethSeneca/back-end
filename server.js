@@ -159,7 +159,7 @@ app.delete("/products/delete", verifyToken, (req, res) => {
 
 app.get("/orders", verifyToken, async (req, res) => {
   ordersDataModule
-    .getAllOrders()
+    .getAllOrders(req)
     .then((data) => {
       if (data.length > 0) {
         res.send({ orders: data });
@@ -174,7 +174,7 @@ app.get("/orders", verifyToken, async (req, res) => {
 
 app.post("/orders/add", (req, res) => {
   ordersDataModule
-    .addOrder(req.body)
+    .addOrder(req)
     .then(() => res.send({ message: "Successfully Added" }))
     .catch((error) => {
       res.send({ error: "Something went wrong" });
@@ -183,7 +183,7 @@ app.post("/orders/add", (req, res) => {
 
 app.put("/orders/edit", (req, res) => {
   ordersDataModule
-    .editOrder(req.body)
+    .editOrder(req)
     .then(() => res.send({ message: "Successfully Edited" }))
     .catch((error) => {
       res.send({ error: error });
@@ -192,7 +192,7 @@ app.put("/orders/edit", (req, res) => {
 
 app.delete("/orders/delete", verifyToken, (req, res) => {
   ordersDataModule
-    .deleteOrder(req.body)
+    .deleteOrder(req)
     .then(() => res.send({ message: "Successfully Deleted" }))
     .catch((error) => {
       res.send({ error: error });
