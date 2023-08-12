@@ -4,7 +4,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 module.exports.getAllProducts = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("products");
+      const collection = await req.app.locals.db.collection("products");
       const products = await collection.find({}).toArray();
       resolve(products);
     } catch (error) {
@@ -24,7 +24,7 @@ module.exports.getProductById = (Id) => {
 module.exports.addProduct = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("products");
+      const collection = await req.app.locals.db.collection("products");
       const insertResult = await collection.insertOne(req.body);
       resolve(insertResult);
     } catch (error) {
@@ -37,7 +37,7 @@ module.exports.addProduct = (req) => {
 module.exports.editProduct = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("products");
+      const collection = await req.app.locals.db.collection("products");
 
       const filter = { _id: new ObjectId(req.body._id) };
       const { _id, ...changeObject } = req.body;
@@ -56,7 +56,7 @@ module.exports.editProduct = (req) => {
 module.exports.deleteProduct = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("products");
+      const collection = await req.app.locals.db.collection("products");
       const filter = { _id: new ObjectId(req.body._id) };
       const deleteResult = await collection.deleteOne(filter);
       resolve(deleteResult);

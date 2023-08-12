@@ -4,6 +4,7 @@ const connectionString =
 async function connectDB() {
   const client = await MongoClient.connect(connectionString, {
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000,
   });
   const db = client.db("evistra"); // Replace 'your_db_name' with the actual name of your database
 

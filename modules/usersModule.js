@@ -4,7 +4,7 @@ const db = require("../database/db");
 module.exports.getAllUsers = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = req.app.locals.db.collection("users");
+      const collection = await req.app.locals.db.collection("users");
       const users = await collection.find({}).toArray();
       resolve(users);
     } catch (error) {
