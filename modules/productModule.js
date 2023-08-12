@@ -4,7 +4,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 module.exports.getAllProducts = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const collection = await req.app.locals.db.collection("products");
+      const collection = await req.db.collection("products");
       const products = await collection.find({}).toArray();
       resolve(products);
     } catch (error) {

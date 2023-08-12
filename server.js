@@ -78,6 +78,15 @@ connectDB()
     process.exit(1);
   });
 
+app.use(async (req, res, next) => {
+  try {
+    req.db = await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ error: "Database connection error" });
+  }
+});
+
 app.set("view engine", ".hbs");
 
 app.use(function (req, res, next) {
@@ -108,11 +117,16 @@ app.get("/products", async (req, res) => {
         res.send({ message: error });
       });
   } else {
-    productsDataModule.getAllProducts(req).then((data) => {
-      if (data.length > 0) {
-        res.send({ products: data });
-      }
-    });
+    productsDataModule
+      .getAllProducts(req)
+      .then((data) => {
+        if (data.length > 0) {
+          res.send({ products: data });
+        }
+      })
+      .catch((error) => {
+        res.send({ message: JSON.stringify(error) });
+      });
   }
 });
 
