@@ -105,7 +105,7 @@ app.get("/products", async (req, res) => {
         res.send({ products: data });
       })
       .catch((error) => {
-        res.send({ message: "no results" });
+        res.send({ message: error });
       });
   } else {
     productsDataModule
