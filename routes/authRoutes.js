@@ -60,7 +60,14 @@ router.post("/signin", async (req, res) => {
 
   try {
     // Check if the user exists
+    const validEmailPattern =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // email pattern
+    if (typeof email !== "string" || !validEmailPattern.test(email)) {
+      return res.status(400).json({ message: "Invalid user input" });
+    }
+
     const user = await usersCollection.findOne({ email });
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
