@@ -14,7 +14,7 @@ module.exports.verifyToken = (req, res, next) => {
     }
 
     // Attach the user ID to the request object for further use
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     req.userType = decoded.userType;
     next();
   });

@@ -4,8 +4,16 @@ module.exports.getAllOrders = (req) => {
   return new Promise(async (resolve, reject) => {
     try {
       const collection = req.db.collection("orders");
-      const products = await collection.find({}).toArray();
-      resolve(products);
+      console.log(req.userId);
+      if (req.userType === "Admin") {
+        const products = await collection.find({}).toArray();
+        resolve(products);
+      } else {
+        const products = await collection
+          .find({ customerId: req.userId })
+          .toArray();
+        resolve(products);
+      }
     } catch (error) {
       reject(error);
     }
