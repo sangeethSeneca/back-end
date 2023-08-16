@@ -181,7 +181,7 @@ app.post("/orders/add", (req, res) => {
     });
 });
 
-app.put("/orders/edit", (req, res) => {
+app.put("/orders/edit", verifyToken, (req, res) => {
   ordersDataModule
     .editOrder(req)
     .then(() => res.send({ message: "Successfully Edited" }))
